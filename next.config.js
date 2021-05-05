@@ -4,6 +4,6 @@ module.exports = {
     'MYSQL_PORT': 3306,
     'MYSQL_DATABASE': 'mocker-user',
     'MYSQL_USER': 'user',
-    'MYSQL_PASSWORD': 'password',
+    'MYSQL_PASSWORD': 'Password_1',
   }
 }

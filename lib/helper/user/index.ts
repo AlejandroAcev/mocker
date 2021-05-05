@@ -3,11 +3,10 @@ import { User } from "../../models/user";
 
 const findUser = async (email: string) => {
   try {
-    const result = await excuteQuery({
+    const [result] = await excuteQuery({
         query: 'SELECT * FROM users WHERE email = ?',
         values: [ email ],
     });
-    
     return result[0] || null;
 
   } catch (error) {

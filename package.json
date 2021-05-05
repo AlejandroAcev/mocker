@@ -2,15 +2,21 @@
   "name": "mocker-back",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Alejandro Acevedo Gonzalez",
+    "email": "alej.acev.gonz@gmail.com"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "add-migration": "node lib/db/migration.mjs add migration",
+    "run-migration": "node lib/db/migration.mjs up"
   },
   "dependencies": {
     "moment": "^2.29.1",
-    "mysql": "^2.18.1",
     "mysql-migrations": "^1.0.7",
+    "mysql2": "^2.2.5",
     "next": "10.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
