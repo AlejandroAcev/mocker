@@ -2,14 +2,16 @@ import crypto from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
 import { findUser, insertUser } from '../../../helper/user';
 import { NewUser, User } from '../../../models/user';
-import { findAccount, getDefaultAccount } from '../../../helper/account';
+import { getDefaultAccount } from '../../../helper/account';
 
 export const createUser = async (userForm: NewUser) => {
 
-  const hasFieldsEmpty = Object.keys(userForm).filter(field => userForm[field] === undefined);
-  if (hasFieldsEmpty.length > 0) {
-    return {error: `The fields cannot be empty: ${hasFieldsEmpty.toString()}`}
+  const emptyFields = Object.keys(userForm).filter(field => userForm[field] === undefined);
+
+  if (emptyFields.length > 0) {
+    return {error: `The fields cannot be empty: ${emptyFields.toString()}`}
   }
+
   // Check if exist user
   const existUser = !!(await findUser(userForm.email));
 

@@ -1,7 +1,5 @@
 import mysql2 from 'mysql2/promise';
 
-
-
 const handleQueryResult = (error: any, results: any, fields: any) => {
   if (error) {
     console.error('---> Error in the database request: ', error);

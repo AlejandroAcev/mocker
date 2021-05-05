@@ -23,7 +23,7 @@ const insertUser = async (user: User) => {
       values: [user.id, user.name, user.email, user.date_of_birth, user.role, user.account_id, user.total_endpoints_created, user.endpoints_active, user.created_at, user.updated_at]
     });
     
-    return user;
+    return result;
 
   } catch (error) {
     console.log( error );
