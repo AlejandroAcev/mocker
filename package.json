@@ -11,9 +11,11 @@
     "build": "next build",
     "start": "next start",
     "add-migration": "node lib/db/migration.mjs add migration",
-    "run-migration": "node lib/db/migration.mjs up"
+    "run-migration": "node lib/db/migration.mjs up",
+    "migration": "db-migrate "
   },
   "dependencies": {
+    "db-migrate-mysql": "^2.1.2",
     "moment": "^2.29.1",
     "mysql-migrations": "^1.0.7",
     "mysql2": "^2.2.5",
