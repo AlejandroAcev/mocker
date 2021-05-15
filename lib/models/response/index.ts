@@ -27,19 +27,17 @@ export interface ErrorBody {
   message: string;
 }
 
-export interface APIError {
+export interface ErrorResponse {
   error: ErrorBody & {
     date: string;
     path?: string;
   }
 }
 
-export type ErrorResponse = APIError;
-
 // SUCCESS RESPONSE ✅
 
 export interface SuccessResponse<T> {
-  data: T;
+  data: T | T[];
   total: number | 0;
   status: ResponseStatus;
   pagination?: PaginationResponse;
