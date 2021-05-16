@@ -76,9 +76,32 @@ const insertUser = async (user: User) => {
   }
 }
 
+const updateUserQuery = async (user: User) => {
+  try {
+    const result = await excuteQuery({
+      query: `UPDATE users
+        SET
+          name = ?,
+          lastname = ?,
+          date_of_birth = ?,
+          role = ?
+        WHERE id = ?`,
+      values: [user.name, user.lastname, user.date_of_birth, user.role, user.id]
+    });
+    
+    return result;
+
+  } catch (error) {
+    console.error('-> Query error: ',  error );
+    const errorResult = errorResponseHandler('query-error', error, '/users/update');
+    return errorResult;
+  }
+}
+
 export {
   findUser,
   insertUser,
+  updateUserQuery,
   findUserById,
   findUsersByParams
 }

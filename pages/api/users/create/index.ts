@@ -6,31 +6,33 @@ import { successResponseHandler } from "../../../../lib/controller/response/succ
 
 const handleRequest = async (req: NextApiRequest, res: NextApiResponse) => {
   
-  if (req.method === 'POST') {
-    const user = {
-      name: req.body['name'],
-      email: req.body['email'],
-      date_of_birth: req.body['date_of_birth'],
-      role: req.body['role'],
-    }
-
-    const emptyFields = Object.keys(user).filter(field => user[field] === undefined);
-
-    if(emptyFields.length > 0) {
-      return res.status(400).json(errorResponseHandler('missing-params', emptyFields.join(', '), '/users/create'));
-    }
-
-    const isValidEmail = validateEmail(user.email);
-
-    if(!isValidEmail) {
-      return res.status(400).json(errorResponseHandler('missing-params', 'the email is not valid', '/users/create'));
-    }
-
-    const result = await createUser(user);
-    return res.status(200).json(successResponseHandler(result))
+  if (req.method !== 'POST') {
+    return res.status(400).json(errorResponseHandler('bad-request'));
   }
 
-  return res.status(400).json(errorResponseHandler('bad-request'));
+  const user = {
+    name: req.body['name'],
+    lastname: req.body['lastname'],
+    email: req.body['email'],
+    date_of_birth: req.body['date_of_birth'],
+    role: req.body['role'],
+  }
+
+  const emptyFields = Object.keys(user).filter(field => user[field] === undefined);
+
+  if(emptyFields.length > 0) {
+    return res.status(400).json(errorResponseHandler('missing-params', emptyFields.join(', '), '/users/create'));
+  }
+
+  const isValidEmail = validateEmail(user.email);
+
+  if(!isValidEmail) {
+    return res.status(400).json(errorResponseHandler('missing-params', 'the email is not valid', '/users/create'));
+  }
+
+  const result = await createUser(user);
+  return res.status(200).json(successResponseHandler(result))
+  
 }
 
 export default handleRequest;

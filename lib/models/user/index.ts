@@ -1,5 +1,6 @@
 export interface NewUser {
   name: string;
+  lastname: string;
   email: string;
   date_of_birth: string;
   role: string;
@@ -12,4 +13,5 @@ export interface User extends NewUser {
   endpoints_active: number;
   created_at: string;
   updated_at: string;
+  is_verified: boolean;
 }
