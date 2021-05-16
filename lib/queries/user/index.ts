@@ -26,13 +26,13 @@ const findUser = async (email: string) => {
   }
 }
 
-const findUserById = async (id: string): Promise<User | ErrorResponse> => {
+const findUserById = async (id: string): Promise<User[] | ErrorResponse> => {
   try {
     const result = await excuteQuery({
         query: `SELECT * FROM users WHERE id = ?`,
         values: [id],
     });
-    return result[0];
+    return result as User[];
 
   } catch (error) {
       console.log(error);

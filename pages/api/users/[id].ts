@@ -15,6 +15,11 @@ const handleRequest = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const result = await findUserById(id.toString());
+
+  if("error" in result){
+    return res.status(200).json(result);
+  }
+
   return res.status(200).json(successResponseHandler(result))
 }
 
