@@ -7,6 +7,7 @@ export const userQueryParams = [
   'id',
   'email',
   'name',
+  'lastname',
   'user_id',
   'account_id',
 ] as const;
