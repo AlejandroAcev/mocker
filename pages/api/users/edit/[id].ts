@@ -7,7 +7,7 @@ import { findUserById } from '../../../../lib/queries/user';
 const handleRequest = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
   
-  if (req.method !== 'POST') {
+  if (req.method !== 'PATCH') {
     return res.status(400).json(errorResponseHandler('bad-request'));
   }
 
