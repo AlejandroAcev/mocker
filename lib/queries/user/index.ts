@@ -99,10 +99,27 @@ const updateUserQuery = async (user: User) => {
   }
 }
 
+const deleteUserQuery = async (user: User) => {
+  try {
+    const result = await excuteQuery({
+      query: `DELETE FROM users WHERE id = ?`,
+      values: [user.id]
+    });
+    
+    return result;
+
+  } catch (error) {
+    console.error('-> Query error: ',  error );
+    const errorResult = errorResponseHandler('query-error', error, '/users/update');
+    return errorResult;
+  }
+}
+
 export {
   findUser,
   insertUser,
   updateUserQuery,
   findUserById,
-  findUsersByParams
+  findUsersByParams,
+  deleteUserQuery
 }
