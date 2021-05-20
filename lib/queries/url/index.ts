@@ -16,7 +16,7 @@ const getUrlParams = (url: string): URLParams[] => {
       const [key, value] = query.split('=');
       return { key, value };
     })
-    .filter(query => query.key !== 'id');
+    .filter(query => query.key !== 'id' && query.value !== '');
     
   return objectParams;
 }
