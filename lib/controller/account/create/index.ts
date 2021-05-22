@@ -19,7 +19,7 @@ const createAccount = async (userId: string, newAccount?: NewAccount): Promise<A
     updated_at: new Date().toISOString(),
     name: newAccount?.name || accountId,
     type: newAccount?.type || 'personal',
-    users: newAccount?.users || [userId].join(', '),
+    users: userId,
   }
 
   const result = await insertAccount(account);

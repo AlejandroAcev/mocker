@@ -35,8 +35,6 @@ const handleRequest = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const result = await createUser(user);
 
-  console.log('Created user: ', result)
-
   if("error" in result){
     return res.status(400).json(result);
   }

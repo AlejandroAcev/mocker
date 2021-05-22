@@ -46,16 +46,16 @@ const findAccount = async (email: string) => {
   }
 }
 
-const findAccountById = async (id: string): Promise<Account | ErrorResponse> => {
+const findAccountById = async (id: string): Promise<Account[] | ErrorResponse> => {
   try {
     const result = await excuteQuery({
         query: `SELECT * FROM accounts WHERE id = ?`,
         values: [id],
     });
-    return result[0] as Account;
+    return result as Account[];
 
   } catch (error) {
-      console.log(error);
+      console.log('---> Query error: ', error);
       const test = errorResponseHandler('query-error', error, '/users');
       return test;
   }
@@ -95,9 +95,10 @@ const insertAccount = async (account: Account) => {
           request_completed,
           request_next_limit,
           endpoints,
+          users,
           created_at,
           updated_at
-        ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       values: [
         account.id,
         account.name,
@@ -108,6 +109,7 @@ const insertAccount = async (account: Account) => {
         account.request_completed,
         account.request_next_limit,
         account.endpoints,
+        account.users,
         account.created_at,
         account.updated_at
       ]
@@ -116,15 +118,33 @@ const insertAccount = async (account: Account) => {
     return result;
 
   } catch (error) {
-    console.log( error );
-    return {error: 'ERROR AL INSERTAR LA CUENTA'};
+    console.error('-> Query error: ',  error );
+    return errorResponseHandler('query-error', error, '/account/create');
   }
 }
+
+const deleteAccountQuery = async (accountId: string) => {
+  try {
+    const result = await excuteQuery({
+      query: `DELETE FROM accounts WHERE id = ?`,
+      values: [accountId]
+    });
+    
+    return result;
+
+  } catch (error) {
+    console.error('-> Query error: ',  error );
+    const errorResult = errorResponseHandler('query-error', error, '/users/update');
+    return errorResult;
+  }
+}
+
 
 export {
   findAccount,
   findAccountById,
   insertAccount,
   getDefaultAccount,
-  findAccountByParams
+  findAccountByParams,
+  deleteAccountQuery
 }
