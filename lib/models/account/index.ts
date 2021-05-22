@@ -3,7 +3,7 @@ export type AccountType = 'personal' | 'professional';
 export interface NewAccount {
   name?: string;
   type: AccountType;
-  users?: string;
+  users: string;
 }
 
 export interface Account extends NewAccount {

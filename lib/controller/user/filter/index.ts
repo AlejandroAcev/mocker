@@ -10,5 +10,5 @@ export const filterUser = async (params: URLParams[]) => {
 
   const result = await findUsersByParams(keys, values);
   return result;
-
+  
 }

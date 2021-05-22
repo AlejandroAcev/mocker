@@ -64,8 +64,8 @@ const findUsersByParams = async (queryParams: UserQueryParam[], params: string[]
 const insertUser = async (user: User) => {
   try {
     const result = await excuteQuery({
-      query: 'INSERT INTO users (id, name, email, date_of_birth, role, account_id, total_endpoints_created, endpoints_active, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      values: [user.id, user.name, user.email, user.date_of_birth, user.role, user.account_id, user.total_endpoints_created, user.endpoints_active, user.created_at, user.updated_at]
+      query: 'INSERT INTO users (id, name, lastname, email, date_of_birth, role, account_id, total_endpoints_created, endpoints_active, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      values: [user.id, user.name, user.lastname, user.email, user.date_of_birth, user.role, user.account_id, user.total_endpoints_created, user.endpoints_active, user.created_at, user.updated_at]
     });
     
     return result;
