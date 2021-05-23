@@ -1,6 +1,5 @@
 import excuteQuery from "../../db/db-connection";
 import { Account } from "../../models/account";
-import { Plan } from "../../models/plan";
 
 const getDefaultPlan = async (): Promise<Account> => {
   try {
@@ -16,6 +15,22 @@ const getDefaultPlan = async (): Promise<Account> => {
       return null;
   }
 }
+
+const getAllPlansQuery = async (): Promise<Account[]> => {
+  try {
+    const result = await excuteQuery({
+        query: 'SELECT * FROM plans',
+        values: [],
+    });
+    
+    return result as Account[];
+
+  } catch (error) {
+      console.error('-> Query error: ', error);
+      return null;
+  }
+}
+
 
 const findPlan = async (id: string) => {
   try {
@@ -34,5 +49,6 @@ const findPlan = async (id: string) => {
 
 export {
   findPlan,
-  getDefaultPlan
+  getDefaultPlan,
+  getAllPlansQuery,
 }

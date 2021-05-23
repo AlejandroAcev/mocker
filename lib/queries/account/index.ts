@@ -56,8 +56,8 @@ const findAccountById = async (id: string): Promise<Account[] | ErrorResponse> =
 
   } catch (error) {
       console.log('---> Query error: ', error);
-      const test = errorResponseHandler('query-error', error, '/users');
-      return test;
+      const errorResult = errorResponseHandler('query-error', error, '/accounts/id');
+      return errorResult;
   }
 }
 
@@ -134,7 +134,7 @@ const deleteAccountQuery = async (accountId: string) => {
 
   } catch (error) {
     console.error('-> Query error: ',  error );
-    const errorResult = errorResponseHandler('query-error', error, '/users/update');
+    const errorResult = errorResponseHandler('query-error', error, '/account/delete');
     return errorResult;
   }
 }

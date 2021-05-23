@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { validate } from 'uuid';
 import { errorResponseHandler } from '../../../../lib/controller/response/error';
 import { handleDeleteUser } from '../../../../lib/controller/user/delete';
-import { User } from '../../../../lib/models/user';
 import { findUserById } from '../../../../lib/queries/user';
 
 const handleRequest = async (req: NextApiRequest, res: NextApiResponse) => {
