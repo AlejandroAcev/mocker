@@ -13,9 +13,7 @@ const handleRequest = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).json(errorResponseHandler('bad-request')); 
   }
 
-  const params = getUrlParams(url);
-  const validUserFilters = params
-    .filter(field => isInArray(field.key, userQueryParams));
+  const validUserFilters = getUrlParams(url, [...userQueryParams]);
 
   if(validUserFilters.length === 0){
     return res.status(400).json(errorResponseHandler('bad-request', 'the params are not valid', url)); 

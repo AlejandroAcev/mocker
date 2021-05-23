@@ -15,6 +15,15 @@ export const accountQueryParams = [
 ] as const;
 export type AccountsQueryParam = typeof accountQueryParams[number];
 
+const formatAccounts = (accounts: Account[]): Account[] =>
+  accounts.map(account => {
+    const endpoints = String(account.endpoints).split(', ');
+    return {
+      ...account,
+      users: String(account.users).split(', '),
+      endpoints: endpoints[0] === '' ? [] : endpoints,
+    }
+  });
 
 const getDefaultAccount = async () => {
   try {
@@ -31,28 +40,14 @@ const getDefaultAccount = async () => {
   }
 }
 
-const findAccount = async (email: string) => {
-  try {
-    const result = await excuteQuery({
-        query: 'SELECT * FROM users WHERE email = ?',
-        values: [ email ],
-    });
-    
-    return result[0] || null;
-
-  } catch (error) {
-      console.log(error);
-      return null;
-  }
-}
-
 const findAccountById = async (id: string): Promise<Account[] | ErrorResponse> => {
   try {
     const result = await excuteQuery({
         query: `SELECT * FROM accounts WHERE id = ?`,
         values: [id],
     });
-    return result as Account[];
+    const accounts = formatAccounts(result as Account[]);
+    return accounts;
 
   } catch (error) {
       console.log('---> Query error: ', error);
@@ -71,7 +66,8 @@ const findAccountByParams = async (queryParams: AccountsQueryParam[], params: st
       query,
       values,
     });
-    return result as Account[];
+    const accounts = formatAccounts(result as Account[]);
+    return accounts;
 
   } catch (error) {
       console.error('-> Query error: ', error);
@@ -80,10 +76,9 @@ const findAccountByParams = async (queryParams: AccountsQueryParam[], params: st
   }
 }
 
-
 const insertAccount = async (account: Account) => {
-  
   try {
+    const endpoints = account.endpoints.join(', ') === '' ? '' : account.endpoints.join(', ');
     const result = await excuteQuery({
       query: `INSERT INTO accounts (
           id,
@@ -108,8 +103,8 @@ const insertAccount = async (account: Account) => {
         account.endpoints_created,
         account.request_completed,
         account.request_next_limit,
-        account.endpoints,
-        account.users,
+        endpoints,
+        account.users.join(', '),
         account.created_at,
         account.updated_at
       ]
@@ -120,6 +115,37 @@ const insertAccount = async (account: Account) => {
   } catch (error) {
     console.error('-> Query error: ',  error );
     return errorResponseHandler('query-error', error, '/account/create');
+  }
+}
+
+const updateAccountQuery = async (account: Account) => {
+  try {
+    const result = await excuteQuery({
+      query: `UPDATE accounts
+        SET 
+          name = ?,
+          type = ?,
+          plan_id = ?,
+          request_next_limit = ?,
+          users = ?,
+          endpoints = ?
+        WHERE id = ?`,
+      values: [
+        account.name,
+        account.type,
+        account.plan_id,
+        account.request_next_limit,
+        account.users.join(', '),
+        account.endpoints.join(', '),
+        account.id
+      ],
+    });
+    
+    return result;
+
+  } catch (error) {
+    console.error('-> Query error: ',  error );
+    return errorResponseHandler('query-error', error, '/account/edit');
   }
 }
 
@@ -141,10 +167,10 @@ const deleteAccountQuery = async (accountId: string) => {
 
 
 export {
-  findAccount,
   findAccountById,
   insertAccount,
   getDefaultAccount,
   findAccountByParams,
-  deleteAccountQuery
+  deleteAccountQuery,
+  updateAccountQuery
 }

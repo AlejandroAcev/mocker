@@ -1,7 +1,9 @@
+import { AccountType } from "../account";
+
 export interface Plan {
   id: string;
   name: string;
-  type: string;
+  type: AccountType;
   level: string;
   users_allowed: number;
   request_allowed: number;

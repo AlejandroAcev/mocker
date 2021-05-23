@@ -3,9 +3,8 @@ export type AccountType = 'personal' | 'professional';
 export interface NewAccount {
   name?: string;
   type: AccountType;
-  users: string;
+  users: string[];
 }
-
 export interface Account extends NewAccount {
   id: string;
   plan_id: string;
@@ -13,7 +12,14 @@ export interface Account extends NewAccount {
   endpoints_created: number;
   request_completed: number;
   request_next_limit: number;
-  endpoints?: string;
+  endpoints: string[];
   created_at: string;
   updated_at: string;
+}
+
+export interface EditAccount {
+  plan_id: string;
+  name: string;
+  users: string[];
+  endpoints: string[];
 }

@@ -14,12 +14,12 @@ const createAccount = async (userId: string, newAccount?: NewAccount): Promise<A
     endpoints_created: 0,
     request_completed: 0,
     request_next_limit: 0,
-    endpoints: '',
+    endpoints: [],
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
     name: newAccount?.name || accountId,
     type: newAccount?.type || 'personal',
-    users: userId,
+    users: [userId],
   }
 
   const result = await insertAccount(account);
