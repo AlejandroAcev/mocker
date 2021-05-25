@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next start",
     "start": "next start",
     "add-migration": "node lib/db/migration.mjs add migration",
     "run-migration": "node lib/db/migration.mjs up",
