@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next build",
+    "start": "next dev",
     "add-migration": "node lib/db/migration.mjs add migration",
     "run-migration": "node lib/db/migration.mjs up",
     "migration": "db-migrate "
