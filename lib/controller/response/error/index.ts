@@ -5,7 +5,8 @@ const errorRecord: Record<ErrorType, ErrorMessage> = {
   'missing-params': 'Some parameters are missing',
   'bad-request': 'Bad request',
   'query-error': 'Error searching in the database',
-  'email-exists': 'The email already exist'
+  'email-exists': 'The email already exist',
+  'endpoints-limit': 'Endpoints limit reached'
 }
 
 const getErrorMessage = (errorType: ErrorType) => errorRecord[errorType];

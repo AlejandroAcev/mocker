@@ -48,14 +48,14 @@ const getAllPlansQuery = async (): Promise<Plan[]> => {
 }
 
 
-const findPlanById = async (id: string) => {
+const findPlanById = async (id: string): Promise<Plan | null> => {
   try {
     const result = await excuteQuery({
         query: 'SELECT * FROM plans WHERE id = ?',
         values: [ id ],
     });
     
-    return result[0] || null;
+    return result[0];
 
   } catch (error) {
       console.error('-> Query error: ', error);

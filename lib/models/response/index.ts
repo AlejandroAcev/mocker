@@ -13,13 +13,15 @@ export type ErrorType =
   | 'missing-params'
   | 'bad-request'
   | 'query-error'
-  | 'email-exists';
+  | 'email-exists'
+  | 'endpoints-limit';
 
 export type ErrorMessage = 
   | 'Some parameters are missing'
   | 'Bad request'
   | 'Error searching in the database'
-  | 'The email already exist';
+  | 'The email already exist'
+  | 'Endpoints limit reached';
 
 export interface ErrorBody {
   code: ErrorCode;
