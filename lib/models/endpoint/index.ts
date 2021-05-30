@@ -4,8 +4,15 @@ export interface NewEndpoint {
 	body: string;
 	is_active: boolean;
 	is_public: boolean;
+	is_json: boolean;
 	users_allowed: string[];
 	methods_allowed: string[];
+}
+
+export interface EditEndpoint extends NewEndpoint {
+	_id: string;
+	times_used: number;
+	account_id: string;
 }
 
 /**

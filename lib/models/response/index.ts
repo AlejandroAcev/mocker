@@ -14,14 +14,16 @@ export type ErrorType =
   | 'bad-request'
   | 'query-error'
   | 'email-exists'
-  | 'endpoints-limit';
+  | 'endpoints-limit'
+  | 'endpoint-not-exist';
 
 export type ErrorMessage = 
   | 'Some parameters are missing'
   | 'Bad request'
   | 'Error searching in the database'
   | 'The email already exist'
-  | 'Endpoints limit reached';
+  | 'Endpoints limit reached'
+  | 'The endpoint requested does not exist';
 
 export interface ErrorBody {
   code: ErrorCode;

@@ -43,7 +43,7 @@ const handleRequest = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).json(userList);
   }
 
-  const endpoints = String(req.body['endpoints']).split(', ')
+  const endpoints = String(req.body['endpoints']).split(', '); 
 
   const editedAccountData: EditAccount = {
     plan_id: req.body['plan_id'],

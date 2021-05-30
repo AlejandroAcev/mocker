@@ -20,7 +20,7 @@ const handleRequest = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).json(result);
   }
 
-  const data = result['data'] || {};
+  const data = result || {};
   return res.status(200).json(successResponseHandler(data))
 }
 

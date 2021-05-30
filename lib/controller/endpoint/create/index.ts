@@ -38,9 +38,23 @@ const handleCreateEndpoint = async (newEndpoint: NewEndpoint): Promise<EndpointR
     return errorResponseHandler('endpoints-limit', `${account.endpoints.length}`, '/endpoints/create');
   }
 
+  const currentUsers = String(newEndpoint.users_allowed).split(',').map(id => id.trim());
+  const users_allowed = newEndpoint.users_allowed.length !== 0 
+    ? currentUsers.includes(newEndpoint.user_id) 
+      ? currentUsers
+      : [...currentUsers, newEndpoint.user_id]
+    : [newEndpoint.user_id]; 
+
   const endpoint: EndpointRequest = {
     ...newEndpoint,
+    users_allowed,
     account_id: account.id
+  }
+
+  const hasEmptyFields = Object.keys(endpoint).filter(key => endpoint[key] === null || endpoint[key] === undefined)
+
+  if(hasEmptyFields.length !== 0) {
+    return errorResponseHandler('missing-params', `${hasEmptyFields.join(', ')}`, '/endpoints/edit');
   }
 
   const endpointResult = await Microservice.create(endpoint);
