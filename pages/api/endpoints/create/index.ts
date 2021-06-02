@@ -12,6 +12,7 @@ const handleRequest = async (req: NextApiRequest, res: NextApiResponse) => {
   const body = req.body['body'];
   const name = req.body['name'];
   const user_id = req.body['user_id'];
+  const is_json = req.body['is_json'];
   // const account_id = req.body['account_id'];
 
   if (!body || !name || !user_id) {
@@ -26,6 +27,7 @@ const handleRequest = async (req: NextApiRequest, res: NextApiResponse) => {
     is_active: req.body['is_active'],
     users_allowed: req.body['users_allowed'],
     methods_allowed: req.body['methods_allowed'],
+    is_json: is_json || false,
   }
   
   const result = await handleCreateEndpoint(endpoint);

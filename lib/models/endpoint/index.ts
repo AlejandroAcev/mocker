@@ -1,3 +1,15 @@
+export interface CreateSimpleEndpoint {
+	body: string;
+	is_json: boolean;
+}
+
+export interface SimpleEndpoint extends CreateSimpleEndpoint {
+	_id: string;
+	times_used: number;
+	create_at: string;
+	updated_at: string;
+}
+
 export interface NewEndpoint {
 	user_id: string;
 	name: string;

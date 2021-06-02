@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-import { EditEndpoint, EndpointRequest, EndpointResponse } from "../models/endpoint";
+import { CreateSimpleEndpoint, EditEndpoint, EndpointRequest, EndpointResponse, SimpleEndpoint } from "../models/endpoint";
 
 const serviceUri = process.env.MICROSERVICE_URI || 'http://127.0.0.1:4001/api';
 
 const serviceEndpointUri = `${serviceUri}/endpoints`
+const serviceSimpleEndpointUri = `${serviceUri}/simple`
 const serviceEndpointDataUri = `${serviceUri}/data`
 
 type SuccessCode = 
@@ -82,8 +83,15 @@ const Microservice = {
     return result;
   },
   
-  delete: () => {
-
+  delete: async (endpoint_id: string): Promise<EndpointResponse | any[]> => {
+    const data = await axios.delete(`${serviceEndpointUri}/${endpoint_id}`)
+      .catch(error => {
+        console.error('---> Error in the connection with the microservice: ', error);
+        // throw error;
+        return null;
+      });
+    const result = handleMicroResponse<EndpointResponse>(data);
+    return result;
   },
 
   use: async (endpoint_id: string): Promise<EndpointResponse | any[]> => {
@@ -95,6 +103,31 @@ const Microservice = {
       });
     const result = handleMicroResponse<EndpointResponse>(data);
     return result;
+  },
+
+  simple: {
+    create: async (endpoint: CreateSimpleEndpoint): Promise<EndpointResponse | any[]> => {
+      const data = await axios.post(serviceSimpleEndpointUri, endpoint)
+        .catch(error => {
+          console.error('---> Error in the connection with the microservice: ', error);
+          // throw error;
+          return null;
+        });
+      
+      const result = handleMicroResponse<EndpointResponse>(data);
+      return result;
+    },
+
+    use: async (id: string) => {
+      const data = await axios.get(`${serviceEndpointDataUri}/${id}` )
+        .catch(error => {
+          console.error('---> Error in the connection with the microservice: ', error);
+          // throw error;
+          return null;
+        });
+      const result = handleMicroResponse<EndpointResponse>(data);
+      return result;
+    }
   }
 }
 
